@@ -2,28 +2,66 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
+    android:weightSum="100"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/Name"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="   Search..." />
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/Search by Ingredients"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ingredients" />
+        <Button
+            android:id="@+id/searchCocktails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cocktails" />
 
-    <Button
-        android:id="@+id/Search by Categories"
+        <Button
+            android:id="@+id/searchIngredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ingredients" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        android:layout_weight="50">
+
+        <ImageView
+            android:id="@+id/photoView"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="Image"
+            android:scaleType="fitCenter"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent" />
+
+    </FrameLayout>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Categories" />
+        android:layout_marginTop="8dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/jsonResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+
 </LinearLayout>
