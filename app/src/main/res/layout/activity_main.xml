@@ -1,67 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:weightSum="100"
-    tools:context=".MainActivity">
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    tools:context=".MainActivity" >
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
+        android:id="@+id/buttonDisplay"
+        android:layout_alignParentTop="true"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:paddingTop="8dp"
+        android:gravity="center"
         android:orientation="horizontal"
         tools:context=".MainActivity">
 
         <Button
             android:id="@+id/searchCocktails"
-            android:layout_width="wrap_content"
+            android:text="@string/search_cocktails"
+            android:textColor="@android:color/white"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cocktails" />
+            android:theme="@style/SearchButton" />
 
         <Button
             android:id="@+id/searchIngredients"
-            android:layout_width="wrap_content"
+            android:text="@string/search_ingredients"
+            android:textColor="@android:color/white"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ingredients" />
+            android:theme="@style/SearchButton" />
+
+        <Button
+            android:id="@+id/searchRandom"
+            android:text="@string/search_random"
+            android:textColor="@android:color/white"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:theme="@style/SearchButton" />
 
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_gravity="center"
-        android:layout_weight="50">
-
-        <ImageView
-            android:id="@+id/photoView"
-            android:layout_marginBottom="8dp"
-            android:contentDescription="Image"
-            android:scaleType="fitCenter"
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent" />
-
-    </FrameLayout>
-
     <ScrollView
+        android:layout_below="@id/buttonDisplay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:fillViewport="true" >
 
-        <LinearLayout
-            android:id="@+id/jsonResult"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/photoView"
+                android:contentDescription="@string/photo_description"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal|center_vertical" />
+
+            <TextView
+                android:id="@+id/cocktailName"
+                android:layout_below="@id/photoView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textAllCaps="true"/>
+
+            <TableLayout
+                android:layout_alignBottom="@id/cocktailName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TableLayout>
+        </RelativeLayout>
     </ScrollView>
-
-
-</LinearLayout>
+</RelativeLayout>

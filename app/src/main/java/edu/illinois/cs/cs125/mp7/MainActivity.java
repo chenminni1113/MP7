@@ -1,12 +1,15 @@
 package edu.illinois.cs.cs125.mp7;
 
+import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,40 +28,67 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
+    /** Default logging tag for main activity */
     private static final String TAG = "MP7:Main";
+    /** URL for API GET random cocktail */
     private static final String RANDOM = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
+    /** Constant to initiate cocktails search */
+    public static final int COCKTAIL_SEARCH_CODE = 23;
+    /** Constant to initiate ingredients search */
+    public static final int INGREDIENT_SEARCH_CODE = 34;
+    /** Request queue for network requests */
     private static RequestQueue requestQueue;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         requestQueue = Volley.newRequestQueue(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Get random cocktail to display
-        loadRandomCocktail();
 
-        // Search cocktails
+        /*
+         * Search button handlers for UI.
+         */
         final Button searchByCocktail = findViewById(R.id.searchCocktails);
         searchByCocktail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 Log.d(TAG, "Search by cocktails button clicked.");
-                setContentView(R.layout.activity_search);
+                startCocktailSearch(v);
             }
         });
-        // Search ingredients
         final Button searchByIngredient = findViewById(R.id.searchIngredients);
         searchByIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 Log.d(TAG, "Search by ingredients button clicked.");
-                setContentView(R.layout.activity_search);
+                startIngredientSearch(v);
             }
         });
+        final Button getRandom = findViewById(R.id.searchRandom);
+        getRandom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Log.d(TAG, "Get random cocktail button clicked.");
+                getRandomCocktail();
+            }
+        });
+
+        getRandomCocktail();
+
+        // Progress bar
+        ProgressBar progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
+        progressBar.getIndeterminateDrawable()
+                .setColorFilter(getResources()
+                        .getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
     }
 
-    private void loadRandomCocktail() {
+
+    /**
+     * Get and display a random cocktail.
+     */
+    private void getRandomCocktail() {
         try {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
                     RANDOM,
@@ -68,17 +98,21 @@ public class MainActivity extends AppCompatActivity {
                         public void onResponse(final JSONObject response) {
                             Log.d(TAG, "Got random cocktail.");
                             try {
-                                JsonArray json = Tasks.getJsonObject(response.toString()).get("drinks").getAsJsonArray();
+                                JsonArray json = Tasks.getJsonObject(response.toString())
+                                        .get("drinks").getAsJsonArray();
                                 Log.d(TAG, "Converted response to JsonArray.");
+                                TextView cocktailName = findViewById(R.id.cocktailName);
+                                String name = json.get(0).getAsJsonObject()
+                                        .get("strDrink").getAsString();
+                                cocktailName.setText(name);
                                 ImageView randomPhoto = findViewById(R.id.photoView);
-                                Log.d(TAG, "ImageView set.");
-                                String imgURL = json.get(0).getAsJsonObject().get("strDrinkThumb").getAsString();
-                                Log.d(TAG, "Set image URL");
+                                String imgURL = json.get(0).getAsJsonObject()
+                                        .get("strDrinkThumb").getAsString();
                                 Picasso.get().load(imgURL).into(randomPhoto);
-                                Log.d(TAG, "Loaded image.");
+                                Log.d(TAG, "Cocktail name and image loaded and set.");
                             } catch (Exception e) {
                                 Log.w(TAG, e.toString());
-                                Log.w(TAG, "Could not load image data.");
+                                Log.d(TAG, "Could not load cocktail data.");
                             }
                         }
                     }, new Response.ErrorListener() {
@@ -90,33 +124,21 @@ public class MainActivity extends AppCompatActivity {
             requestQueue.add(jsonObjectRequest);
             } catch (Exception e) {
                 Log.w(TAG, e.toString());
-                e.printStackTrace();
+                Log.d(TAG, "Unsuccessful API call.");
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        setContentView(R.layout.activity_main);
+    public void startCocktailSearch(View view) {
+        Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra("searchKey", COCKTAIL_SEARCH_CODE);
+        startActivity(intent);
+        Log.d(TAG, "Switching to search activity.");
     }
 
-    void startAPICall(final String url) {
-        try {
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                    Request.Method.GET, url, null,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(final JSONObject response) {
-                            Log.d(TAG, "API call successful.");
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(final VolleyError error) {
-                            Log.w(TAG, error.toString());
-                    }
-                });
-            requestQueue.add(jsonObjectRequest);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void startIngredientSearch(View view) {
+        Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra("searchKey", INGREDIENT_SEARCH_CODE);
+        startActivity(intent);
+        Log.d(TAG, "Switching to search activity.");
     }
 }

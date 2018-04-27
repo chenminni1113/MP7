@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">MP7</string>
+    <string name="app_name">The Cocktail DB</string>
+
+    <string name="search_cocktails">Cocktails</string>
+    <string name="search_ingredients">Ingredients</string>
+    <string name="search_random">Random</string>
+    <string name="photo_description">Photo of the cocktail</string>
+    <string name="search">Search...</string>
 </resources>
