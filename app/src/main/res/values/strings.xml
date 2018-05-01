@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">The Cocktail DB</string>
-
     <string name="search_cocktails">Cocktails</string>
     <string name="search_ingredients">Ingredients</string>
     <string name="search_random">Random</string>
+    <string name="cocktails_tile">Drinks &amp; Cocktails</string>
+    <string name="ingredients_title">Ingredients</string>
+    <string name="name_description">Name of the cocktail</string>
     <string name="photo_description">Photo of the cocktail</string>
-    <string name="search">Search...</string>
+    <string name="item_name_description">Name of the item</string>
+    <string name="item_photo_description">Photo of the item</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Try "vodka, rum, margarita&#8230;"</string>
 </resources>

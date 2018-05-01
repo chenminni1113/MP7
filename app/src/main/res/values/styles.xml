@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="SearchButton" parent="Theme.AppCompat.Light">
+    <style name="SearchButton" parent="Widget.AppCompat.Button.Borderless.Colored">
         <item name="colorControlHighlight">@color/colorAccent</item>
         <item name="colorButtonNormal">@color/colorPrimary</item>
     </style>

@@ -21,29 +21,26 @@
         <Button
             android:id="@+id/searchCocktails"
             android:text="@string/search_cocktails"
-            android:textColor="@android:color/white"
+            style="@style/SearchButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:theme="@style/SearchButton" />
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/searchIngredients"
             android:text="@string/search_ingredients"
-            android:textColor="@android:color/white"
+            style="@style/SearchButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:theme="@style/SearchButton" />
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/searchRandom"
             android:text="@string/search_random"
-            android:textColor="@android:color/white"
+            style="@style/SearchButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:theme="@style/SearchButton" />
+            android:layout_weight="1" />
 
     </LinearLayout>
 
@@ -66,15 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
-                android:adjustViewBounds="true"/>
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center_horizontal|center_vertical" />
+                android:adjustViewBounds="true" />
 
             <TextView
                 android:id="@+id/cocktailName"
@@ -84,14 +73,8 @@
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:textAllCaps="true"/>
+                android:textAllCaps="true" />
 
-            <TableLayout
-                android:layout_alignBottom="@id/cocktailName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </TableLayout>
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

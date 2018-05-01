@@ -12,14 +12,23 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".SearchActivity"
             android:label="Search"
-            android:parentActivityName=".MainActivity"></activity>
+            android:launchMode="singleTop">
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ResultsActivity"
+            android:label="Drinks &amp; Cocktails"
+            android:parentActivityName=".MainActivity">
+        </activity>
     </application>
-
 </manifest>

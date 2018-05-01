@@ -8,13 +8,4 @@
     android:weightSum="100"
     tools:context=".SearchActivity">
 
-    <SearchView
-        android:id="@+id/searchText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:queryHint="@string/search"
-        android:inputType="textPersonName|textCapWords"
-        android:imeOptions="actionSearch">
-    </SearchView>
-
 </LinearLayout>
